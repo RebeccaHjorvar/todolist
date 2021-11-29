@@ -2,14 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
+app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
+
   var today = new Date();
-  today.getDay;
-  if (today.getDay() === 0 || today.getDay === 7) {
-    res.send("Yay! It's the weekend");
+  var currentDay = today.getDay();
+
+  
+  if (currentDay === 6 || currentDay === 0) {
+    res.sendFile(__dirname + "/weekend.html");
   } else {
-    res.send("Boo! I have to work ");
+    res.sendFile(__dirname + "/weekday.html");
   }
 });
 
