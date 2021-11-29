@@ -8,13 +8,26 @@ app.get("/", (req, res) => {
 
   var today = new Date();
   var currentDay = today.getDay();
-
+  var day = "";
   
-  if (currentDay === 6 || currentDay === 0) {
-    res.sendFile(__dirname + "/weekend.html");
-  } else {
-    res.sendFile(__dirname + "/weekday.html");
+  var weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
+
+  for (let i = 0; i < weekdays.length+1; i++) {
+
+    if(currentDay === i){
+      day = weekdays[i]; 
   }
+}
+  res.render("list", { kindOfDay: day })
+  
 });
 
 app.listen(3000, () => {
