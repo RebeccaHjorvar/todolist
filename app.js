@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
-var items = [];
+let items = [];
+let workItems = [];
 
 app.set('view engine', 'ejs');
 
@@ -22,7 +23,7 @@ app.get("/", (req, res) => {
 
   var day = today.toLocaleDateString("en-US", options);
 
-  res.render("list", { kindOfDay: day, newListItems: items });
+  res.render("list", { listTitle: day, newListItems: items });
   
 });
 
@@ -33,7 +34,15 @@ app.post("/", (req,res) => {
   res.redirect("/");
 })
 
+app.get("/work", (res, req) => {
+  req.render("list", {listTitle: "Work List", newListItems: workItems});
+});
 
+app.post("/work", (res,req) => {
+  let item = req.body.newItem;
+  workItems.push(item);
+  res.redirect("/work")
+})
 
 app.listen(3001, () => {
   console.log("Server started on port 3001");
