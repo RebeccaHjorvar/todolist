@@ -1,22 +1,45 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const date = require(__dirname + "/date.js");
 const app = express();
+
+const items = ["Buy food", "Cook food", "Eat food"];
+const workItems = ["code", "code more"];
+
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-  var today = new Date();
-  var currentDay = today.getDay();
+  let day = date.getDay();
 
-  
-  if (currentDay === 6 || currentDay === 0) {
-    res.sendFile(__dirname + "/weekend.html");
+  res.render("list", { listTitle: day, newListItems: items });  
+});
+
+app.post("/", (req,res) => {
+
+  let item = req.body.newItem;
+
+  if(req.body.list === "Work"){
+    workItems.push(item);
+    res.redirect("/work");
   } else {
-    res.sendFile(__dirname + "/weekday.html");
+    items.push(item);
+    res.redirect("/");
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+app.get("/work", (req, res) => {
+  res.render("list", {listTitle: "Work List", newListItems: workItems});
+});
+
+app.listen(3002, () => {
+  console.log("Server started on port 3002");
 });
