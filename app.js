@@ -29,20 +29,20 @@ app.get("/", (req, res) => {
 
 app.post("/", (req,res) => {
 
-  var item = req.body.newItem;
-  items.push(item);
-  res.redirect("/");
+  let item = req.body.newItem;
+
+  if(req.body.list === "Work"){
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
 })
 
 app.get("/work", (res, req) => {
   req.render("list", {listTitle: "Work List", newListItems: workItems});
 });
-
-app.post("/work", (res,req) => {
-  let item = req.body.newItem;
-  workItems.push(item);
-  res.redirect("/work")
-})
 
 app.listen(3001, () => {
   console.log("Server started on port 3001");
