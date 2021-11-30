@@ -2,12 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
+var items = [];
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-var items = [];
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
@@ -34,6 +35,6 @@ app.post("/", (req,res) => {
 
 
 
-app.listen(4000, () => {
-  console.log("Server started on port 4000");
+app.listen(3001, () => {
+  console.log("Server started on port 3001");
 });
