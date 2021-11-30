@@ -3,8 +3,6 @@ const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js")
 const app = express();
 
-
-
 let items = [];
 let workItems = [];
 
@@ -16,7 +14,7 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-  let day = date();
+  let day = date.getDate();
 
   res.render("list", { listTitle: day, newListItems: items });  
 });
@@ -42,6 +40,6 @@ app.get("/work", (req, res) => {
   res.render("list", {listTitle: "Work List", newListItems: workItems});
 });
 
-app.listen(3001, () => {
-  console.log("Server started on port 3001");
+app.listen(3002, () => {
+  console.log("Server started on port 3002");
 });

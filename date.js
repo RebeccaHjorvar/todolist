@@ -1,7 +1,5 @@
 //jshint esversion:6
 
-module.exports = GetDate;
-
 const GetDate = () =>{
     let today = new Date();
 
@@ -13,4 +11,18 @@ const GetDate = () =>{
   
     let day = today.toLocaleDateString("en-US", options);
     return day;
-}
+};
+
+const GetDay = () => {
+    let today = new Date();
+
+    let options = {
+      weekday: "long"
+    };
+  
+    let day = today.toLocaleDateString("en-US", options);
+    return day;
+};
+
+module.exports.getDate = GetDate;
+module.exports.getDay = GetDay;
