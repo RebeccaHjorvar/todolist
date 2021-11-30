@@ -40,8 +40,12 @@ app.post("/", (req,res) => {
   }
 })
 
-app.get("/work", (res, req) => {
-  req.render("list", {listTitle: "Work List", newListItems: workItems});
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+app.get("/work", (req, res) => {
+  res.render("list", {listTitle: "Work List", newListItems: workItems});
 });
 
 app.listen(3001, () => {
