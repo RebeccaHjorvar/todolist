@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const date = require(__dirname + "/date.js")
+const date = require(__dirname + "/date.js");
 const app = express();
 
-let items = [];
-let workItems = [];
+const items = ["Buy food", "Cook food", "Eat food"];
+const workItems = ["code", "code more"];
 
 app.set('view engine', 'ejs');
 
@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-  let day = date.getDate();
+  let day = date.getDay();
 
   res.render("list", { listTitle: day, newListItems: items });  
 });
@@ -30,7 +30,7 @@ app.post("/", (req,res) => {
     items.push(item);
     res.redirect("/");
   }
-})
+});
 
 app.get("/about", (req, res) => {
   res.render("about");
